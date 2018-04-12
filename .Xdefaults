@@ -1,0 +1,7 @@
+*scrollBar: true
+*rightScrollBar: true
+*Scrollbar.thickness: 3
+XTerm*background: #222233
+XTerm*foreground: #f0f0f0
+XTerm*selectToClipboard: true
+XTerm*faceName: "Inconsolata:size=12:antialias=true"
