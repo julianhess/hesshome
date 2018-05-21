@@ -1,4 +1,6 @@
-"au! redhat 
+if exists('#redhat')
+	au! redhat 
+endif
 
 set number
 set title
@@ -36,7 +38,7 @@ autocmd FileType matlab setl sw=2 sts=2 " match Mike's MATLAB indent style
 autocmd FileType c,cpp setl sw=3 sts=3 " for C
 autocmd FileType perl,python,sh,awk,ruby setl ts=4 sw=4 sts=0 " for Perl/Python/Bash/AWK/Ruby
 autocmd FileType perl,sh,python,R,java set nospell " syntax file tries to spellcheck everything
-autocmd FileType java setl ts=4 sw=4 sts=4 " Java syntax file is annoying
+autocmd FileType java,javascript setl ts=4 sw=4 sts=4 " for Java/Javascript (to match Mike's style)
 autocmd FileType * setl fo-=c fo-=r fo-=o
 
 " to save/load folds on write/read
