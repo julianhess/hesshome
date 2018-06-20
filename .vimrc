@@ -9,6 +9,8 @@ set nohlsearch
 syntax on
 set spell
 
+set colorcolumn=80
+
 set foldcolumn=1
 set foldmethod=marker
 
