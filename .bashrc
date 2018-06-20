@@ -41,6 +41,7 @@ alias vi='vim'
 alias matlab='matlab -nodesktop'
 alias xtitle='echo -n "]0;\!*"'
 alias resetw='kill -WINCH $$'
+alias hgit='git --git-dir ~/.hesshome/.git --work-tree=$HOME'
 
 hexdumpc () {
 	hexdump -C $1 | sed 's/|.*$//'
