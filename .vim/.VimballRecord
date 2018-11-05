@@ -1,1 +1,0 @@
-csv-0.30.vmb: call delete('/home/unix/jhess/.vim/ftplugin/csv.vim	[[[1')|call delete('/home/unix/jhess/.vim/doc/ft-csv.txt	[[[1')|call delete('/home/unix/jhess/.vim/syntax/csv.vim	[[[1')|call delete('/home/unix/jhess/.vim/ftdetect/csv.vim	[[[1')|call delete('/home/unix/jhess/.vim/plugin/csv.vim	[[[1')
