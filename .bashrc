@@ -43,6 +43,10 @@ alias xtitle='echo -n "]0;\!*"'
 alias resetw='kill -WINCH $$'
 alias hgit='git --git-dir ~/.hesshome/.git --work-tree=$HOME'
 
+#TODO: add conditional around these to ensure they're necessary
+alias python='python3'
+alias pip='pip3'
+
 hexdumpc () {
 	hexdump -C $1 | sed 's/|.*$//'
 }
