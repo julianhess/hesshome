@@ -12,6 +12,7 @@ esac
 export PATH=$PATH:/usr/local/bin/jdk1.8.0_121/bin
 export PATH=$PATH:/usr/local/MATLAB/R2016a/bin
 export PATH=$PATH:/usr/lib/google-cloud-sdk/bin
+export PATH=$PATH:~/.local/bin
 
 [ -d '/mnt/j/local/bin' ] && export PATH=$PATH:/mnt/j/local/bin
 
@@ -46,6 +47,7 @@ alias hgit='git --git-dir ~/.hesshome/.git --work-tree=$HOME'
 #TODO: add conditional around these to ensure they're necessary
 alias python='python3'
 alias pip='pip3'
+alias ipython='ipython3'
 
 hexdumpc () {
 	hexdump -C $1 | sed 's/|.*$//'
