@@ -15,6 +15,8 @@ export PATH=$PATH:/usr/lib/google-cloud-sdk/bin
 export PATH=$PATH:~/.local/bin
 
 [ -d '/mnt/j/local/bin' ] && export PATH=$PATH:/mnt/j/local/bin
+[ -d '/mnt/j/local/include' ] && export CPATH=$CPATH:/mnt/j/local/include
+[ -d '/mnt/j/local/miniconda3/bin' ] && export PATH=$PATH:/mnt/j/local/miniconda3/bin
 
 export JAVA_HOME=/usr/local/bin/jdk1.8.0_121/
 
