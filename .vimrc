@@ -15,6 +15,7 @@ set foldcolumn=1
 set foldmethod=marker
 
 noremap <Leader>c :set cursorline! cursorcolumn!<CR>
+noremap <Leader>h :set hlsearch!<CR>
 
 " colorscheme stuff
 " set t_Co=256
