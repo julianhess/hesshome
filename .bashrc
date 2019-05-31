@@ -66,6 +66,11 @@ x11vncstart () {
 	x11vnc -display :$1 -rfbauth ~/.vnc/passwd -rfbport $3 -shared -forever -xd_mem 10 -xd_area 100 &
 }
 
+# ssh and change into CWD.  assumes shared filesystem.
+sshc () {
+	ssh $@ -t 'cd '`pwd`'; exec $SHELL -l'
+}
+
 #prompt and ls colors
 PS1='\[\e[0;33m\][\[\e[m\]\u\[\e[0;33m\]@\[\e[m\]\h \[\e[0;35m\]\W\[\e[m\]\[\e[0;33m\]]\[\e[m\]$ '
 
