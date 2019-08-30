@@ -4,4 +4,5 @@
 XTerm*background: #222233
 XTerm*foreground: #f0f0f0
 XTerm*selectToClipboard: true
-XTerm*faceName: "Inconsolata:size=12:antialias=true"
+XTerm*faceName: "Inconsolata:size=11:antialias=true"
+XTerm*metaSendsEscape: true
