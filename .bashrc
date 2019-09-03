@@ -21,6 +21,10 @@ export PATH=$PATH:~/.local/bin
 [ -d '/mnt/j/local/lib' ] && export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/mnt/j/local/lib
 [ -d '/mnt/j/local/miniconda3/bin' ] && export PATH=$PATH:/mnt/j/local/miniconda3/bin
 
+# Slurm path
+[ -d '/mnt/j/proj/cloud/slurm/conf/' ] && export SLURM_CONF=/mnt/j/proj/cloud/slurm/conf/slurm.conf
+
+# Java paths
 export JAVA_HOME=/usr/local/bin/jdk1.8.0_121/
 
 #from Broad server:
@@ -34,7 +38,6 @@ export MAIL=/usr/spool/mail/$USER
 export MAILCHECK=30
 export MAILFILE=$MAIL
 export PRINTER=lw
-export TERM=xterm-256color
 
 alias ls='ls -Ch --color=auto'
 alias grep='grep --color=auto'
