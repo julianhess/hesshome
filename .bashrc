@@ -61,6 +61,9 @@ hexdumpc () {
 	hexdump -C $1 | sed 's/|.*$//'
 }
 
+#
+# VNC stuff
+
 vncstart () {
 	[ "$#" -ne 3 ] && { echo "Usage: vncstart <session> <resolution> <port>"; return; }
 	vncserver :$1 -depth 24 -geometry $2 -rfbauth ~/.vnc/passwd -rfbport $3 &
@@ -72,10 +75,33 @@ x11vncstart () {
 	x11vnc -display :$1 -rfbauth ~/.vnc/passwd -rfbport $3 -shared -forever -xd_mem 10 -xd_area 100 &
 }
 
+#
+# gcloud stuff
+
+# swap boot disk of an instance for a new disk created from some image.
+# TODO: add sanity checks
+swap_instance_boot_disk () {
+	img=$1
+	shift
+	zone=$2
+	shift
+
+	for i in "$@"; do
+		gcloud compute disks create ${i}-new --image $img --zone us-east1-d && \
+		gcloud compute instances detach-disk $i --disk $i --zone us-east1-d && \
+		gcloud compute instances attach-disk $i --disk ${i}-new --zone us-east1-d && \
+		gcloud compute disks delete $i --quiet --zone us-east1-d
+	done
+}
+
+#
+# misc. stuff
+
 # ssh and change into CWD.  assumes shared filesystem.
 sshc () {
 	ssh $@ -t 'cd '`pwd`'; exec $SHELL -l'
 }
+
 
 #prompt and ls colors
 PS1='\[\e[0;33m\][\[\e[m\]\u\[\e[0;33m\]@\[\e[m\]\h \[\e[0;35m\]\W\[\e[m\]\[\e[0;33m\]]\[\e[m\]$ '
