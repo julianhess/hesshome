@@ -1,6 +1,6 @@
 font.family: sans-serif
 font.sans-serif: Helvetica
 text.usetex: True
-text.latex.preamble: \usepackage[helvet]{sfmath}
+text.latex.preamble: \usepackage[helvet]{sfmath} \usepackage{amsmath}
 
 lines.linewidth: 1.0
