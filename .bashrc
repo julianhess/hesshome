@@ -13,6 +13,7 @@ export PATH=$PATH:/usr/local/bin/jdk1.8.0_121/bin
 export PATH=$PATH:/usr/local/MATLAB/R2016a/bin
 export PATH=$PATH:/usr/lib/google-cloud-sdk/bin
 export PATH=$PATH:~/.local/bin
+export PATH=$PATH:~/bin
 
 # NFS-specific paths
 
