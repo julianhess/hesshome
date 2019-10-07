@@ -76,6 +76,14 @@ x11vncstart () {
 	x11vnc -display :$1 -rfbauth ~/.vnc/passwd -rfbport $3 -shared -forever -xd_mem 10 -xd_area 100 &
 }
 
+xps () {
+	echo $@ | xclip -selection clipboard
+}
+
+xp () {
+	echo $@ | xclip
+}
+
 #
 # gcloud stuff
 
