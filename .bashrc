@@ -77,11 +77,11 @@ x11vncstart () {
 }
 
 xps () {
-	echo $@ | xclip -selection clipboard
+	echo -n $@ | xclip -selection clipboard
 }
 
 xp () {
-	echo $@ | xclip
+	echo -n $@ | xclip
 }
 
 #
