@@ -6,6 +6,8 @@ set number
 set title
 set nohlsearch
 
+set autochdir
+
 syntax on
 set spell
 
