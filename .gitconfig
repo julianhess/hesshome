@@ -1,0 +1,7 @@
+[user]
+	email = jhess@broadinstitute.org
+	name = Julian Hess
+[push]
+	default = simple
+[log]
+	decorate = auto
