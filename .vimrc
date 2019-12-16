@@ -6,7 +6,7 @@ set number
 set title
 set nohlsearch
 
-set autochdir
+autocmd VimEnter * set autochdir
 
 syntax on
 set spell
