@@ -68,7 +68,7 @@ hexdumpc () {
 
 vncstart () {
 	[ "$#" -ne 3 ] && { echo "Usage: vncstart <session> <resolution> <port>"; return; }
-	vncserver :$1 -depth 24 -geometry $2 -rfbauth ~/.vnc/passwd -rfbport $3 &
+	/opt/TurboVNC/bin/vncserver :$1 -depth 24 -geometry $2 -rfbauth ~/.vnc/passwd -rfbport $3 -interframe &
 }
 
 x11vncstart () {
