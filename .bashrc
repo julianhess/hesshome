@@ -44,6 +44,7 @@ export PRINTER=lw
 alias ls='ls -Ch --color=auto'
 alias grep='grep --color=auto'
 alias awkt="awk -F'\t'" 
+alias columnt="column -tn -s$'\t'" 
 alias hnum="tr '\t' '\n' | nl"
 alias rp='realpath'
 alias rm='rm -i'
