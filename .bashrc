@@ -147,7 +147,7 @@ pc () {
 	local gb=$(git rev-parse --abbrev-ref HEAD 2> /dev/null)
 	[ ! -z $gb ] && local git_branch=" ${ul}${gb}${sg}" || local git_branch=""
 
-	PS1=$bd${colorcyc[3]}'['$sg$username$hostcolor'\h '${colorcyc[5]}'\W'$sg$git_branch$exit_code${colorcyc[3]}$bd'> '$sg
+	PS1=$bd${colorcyc[3]}'['$sg$username$hostcolor'\h '${colorcyc[5]}'\W'$sg$git_branch$exit_code${colorcyc[3]}$bd']'$sg'$ '
 }
 
 #
