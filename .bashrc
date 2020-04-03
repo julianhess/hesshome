@@ -117,7 +117,38 @@ sshc () {
 #
 #prompt stuff
 
-PS1='\[\e[0;33m\][\[\e[m\]\u\[\e[0;33m\]@\[\e[m\]\h \[\e[0;35m\]\W\[\e[m\]\[\e[0;33m\]]\[\e[m\]$ '
+PROMPT_COMMAND=pc
+
+# formatting characters
+ul=$(tput smul)
+bd=$(tput bold)
+sg=$(tput sgr0)
+
+# color cycle
+for i in {0..7}; do
+	colorcyc[$i]=$(tput setaf $i)
+done
+
+# hostname color hash
+hostcolor=$(tput setaf $(echo -n $HOSTNAME | perl -ne 'foreach (split(//, $_)) { $x += ord($_) }; print $x % 5 + 2'))
+
+# username color hash
+usercolor=$(tput setaf $(echo -n $USER | perl -ne 'foreach (split(//, $_)) { $x += ord($_) }; print $x % 5 + 2'))
+
+# only display username if it's not the default
+[ $USER != "jhess" ] && username=$usercolor$USER$sg'@' || username=""
+
+pc () {
+	# display exit status if nonzero
+	local ec=$?
+	[[ $ec != 0 ]] && local exit_code=" $bd$ec$sg" || local exit_code=""
+
+	# display current git branch if applicable
+	local gb=$(git rev-parse --abbrev-ref HEAD 2> /dev/null)
+	[ ! -z $gb ] && local git_branch=" ${ul}${gb}${sg}" || local git_branch=""
+
+	PS1=$bd${colorcyc[3]}'['$sg$username$hostcolor'\h '${colorcyc[5]}'\W'$sg$git_branch$exit_code${colorcyc[3]}$bd'> '$sg
+}
 
 #
 # define ls colors
