@@ -115,7 +115,7 @@ sshc () {
 
 
 #
-#prompt stuff
+# prompt stuff
 
 PROMPT_COMMAND=pc
 
