@@ -121,13 +121,13 @@ sshc () {
 PROMPT_COMMAND=pc
 
 # formatting characters
-ul=$(tput smul)
-bd=$(tput bold)
-sg=$(tput sgr0)
+ul='\['$(tput smul)'\]'
+bd='\['$(tput bold)'\]'
+sg='\['$(tput sgr0)'\]'
 
 # color cycle
 for i in {0..7}; do
-	colorcyc[$i]=$(tput setaf $i)
+	colorcyc[$i]='\['$(tput setaf $i)'\]'
 done
 
 # hostname color hash
