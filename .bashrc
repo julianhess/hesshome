@@ -131,10 +131,10 @@ for i in {0..7}; do
 done
 
 # hostname color hash
-hostcolor=$(tput setaf $(echo -n $HOSTNAME | perl -ne 'foreach (split(//, $_)) { $x += ord($_) }; print $x % 5 + 2'))
+hostcolor='\['$(tput setaf $(echo -n $HOSTNAME | perl -ne 'foreach (split(//, $_)) { $x += ord($_) }; print $x % 5 + 2'))'\]'
 
 # username color hash
-usercolor=$(tput setaf $(echo -n $USER | perl -ne 'foreach (split(//, $_)) { $x += ord($_) }; print $x % 5 + 2'))
+usercolor='\['$(tput setaf $(echo -n $USER | perl -ne 'foreach (split(//, $_)) { $x += ord($_) }; print $x % 5 + 2'))'\]'
 
 # only display username if it's not the default
 [ $USER != "jhess" ] && username=$usercolor$USER$sg'@' || username=""
