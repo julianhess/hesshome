@@ -124,6 +124,7 @@ PROMPT_COMMAND=pc
 ul='\['$(tput smul)'\]'
 bd='\['$(tput bold)'\]'
 sg='\['$(tput sgr0)'\]'
+rv='\['$(tput rev)'\]'
 
 # color cycle
 for i in {0..7}; do
@@ -146,12 +147,55 @@ pc () {
 
 	# display current git branch if applicable
 	local gb=$(git rev-parse --abbrev-ref HEAD 2> /dev/null)
-	[ ! -z $gb ] && local git_branch=" ${ul}${gb}${sg}" || local git_branch=""
+	if [ ! -z $gb ]; then
+		local git_branch=" ${ul}${gb}${sg}"
+
+		# excised from gitstatus.sh by Alan K. Stebbens <aks@stebbens.org> [http://github.com/aks]
+
+		local num_staged=0
+		local num_changed=0
+		local num_conflicts=0
+		while IFS='' read -r line; do
+		  status="${line:0:2}"
+		  while [[ -n ${status} ]]; do
+			case "${status}" in
+			  #two fixed character matches, loop finished
+			  U?) ((num_conflicts++)); break;;
+			  ?U) ((num_conflicts++)); break;;
+			  DD) ((num_conflicts++)); break;;
+			  AA) ((num_conflicts++)); break;;
+			  #two character matches, first loop
+			  ?M) ((num_changed++)) ;;
+			  ?D) ((num_changed++)) ;;
+			  ?\ ) ;;
+			  #single character matches, second loop
+			  U) ((num_conflicts++)) ;;
+			  \ ) ;;
+			  *) ((num_staged++)) ;;
+			esac
+			status="${status:0:(${#status}-1)}"
+		  done
+		done < <(git status -uno --porcelain)
+
+		local git_changes=""
+		[ $num_staged == 0 ] || git_changes+=${colorcyc[2]}${num_staged}
+		[ $num_changed == 0 ] || git_changes+=${colorcyc[1]}${num_changed}
+		[ $num_conflicts == 0 ] || git_changes+=${colorcyc[3]}${num_conflicts}
+
+		stash_file=$(git rev-parse --git-dir 2> /dev/null)/logs/refs/stash
+		[ -f "$stash_file" ] && local num_stashed=$(wc -l < "$stash_file")
+		[ -z $num_stashed ] || git_changes+=${colorcyc[5]}${num_stashed}
+
+		[ -n "$git_changes" ] && git_changes=:$rv$git_changes$sg
+	else
+		local git_branch=""
+		local git_changes=""
+	fi
 
 	# display conda environment
 	[ ! -z $CONDA_PROMPT_MODIFIER ] && local conda_env=$CONDA_PROMPT_MODIFIER || local conda_env=""
 
-	PS1=$conda_env$bd${colorcyc[3]}'['$sg$username$hostcolor'\h '${colorcyc[5]}'\W'$sg$git_branch$exit_code${colorcyc[3]}$bd']'$sg'$ '
+	PS1=$conda_env$bd${colorcyc[3]}'['$sg$username$hostcolor'\h '${colorcyc[5]}'\W'$sg$git_branch$git_changes$exit_code${colorcyc[3]}$bd']'$sg'$ '
 }
 
 #
