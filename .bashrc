@@ -145,6 +145,10 @@ pc () {
 	local ec=$?
 	[[ $ec != 0 ]] && local exit_code=" $bd$ec$sg" || local exit_code=""
 
+	# display number of background jobs
+	local jwc=$(jobs | wc -l)
+	[ $jwc -gt 0 ] && local n_jobs=" ${colorcyc[3]}$(jobs | wc -l)$sg" || local n_jobs=""
+
 	# display current git branch if applicable
 	local gb=$(git rev-parse --abbrev-ref HEAD 2> /dev/null)
 	if [ ! -z $gb ]; then
@@ -195,7 +199,7 @@ pc () {
 	# display conda environment
 	[ ! -z $CONDA_PROMPT_MODIFIER ] && local conda_env=$CONDA_PROMPT_MODIFIER || local conda_env=""
 
-	PS1=$conda_env$bd${colorcyc[3]}'['$sg$username$hostcolor'\h '${colorcyc[5]}'\W'$sg$git_branch$git_changes$exit_code${colorcyc[3]}$bd']'$sg'$ '
+	PS1=$conda_env$bd${colorcyc[3]}'['$sg$username$hostcolor'\h '${colorcyc[5]}'\W'$sg$git_branch$git_changes$n_jobs$exit_code${colorcyc[3]}$bd']'$sg'$ '
 }
 
 #
