@@ -5,6 +5,7 @@ endif
 set number
 set title
 set nohlsearch
+set noea
 
 autocmd VimEnter * set autochdir
 
