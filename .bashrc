@@ -18,6 +18,7 @@ export PATH=$PATH:~/bin
 # NFS-specific paths
 
 [ -d '/mnt/j/local/bin' ] && export PATH=$PATH:/mnt/j/local/bin
+[ -d '/mnt/j/local/bin/jvarkit' ] && export PATH=$PATH:/mnt/j/local/bin/jvarkit
 [ -d '/mnt/j/local/bin/MATLAB/R2016a/bin' ] && export PATH=$PATH:/mnt/j/local/bin/MATLAB/R2016a/bin
 [ -d '/mnt/j/local/include' ] && export CPATH=$CPATH:/mnt/j/local/include
 [ -d '/mnt/j/local/lib' ] && export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/mnt/j/local/lib
