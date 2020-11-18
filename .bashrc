@@ -199,10 +199,11 @@ pc () {
 		local git_changes=""
 	fi
 
-	# display conda environment
-	[ ! -z $CONDA_PROMPT_MODIFIER ] && local conda_env=$CONDA_PROMPT_MODIFIER || local conda_env=""
+	# display conda/venv environment
+	[ ! -z $CONDA_PROMPT_MODIFIER ] && local py_venv=$CONDA_PROMPT_MODIFIER || local py_venv=""
+	[ ! -z $VIRTUAL_ENV ] && local py_venv="($(basename $VIRTUAL_ENV)) " || local py_venv=""
 
-	PS1=$conda_env$bd${colorcyc[3]}'['$sg$username$hostcolor'\h '${colorcyc[5]}'\W'$sg$git_branch$git_changes$n_jobs$exit_code${colorcyc[3]}$bd']'$sg'$ '
+	PS1=$py_venv$bd${colorcyc[3]}'['$sg$username$hostcolor'\h '${colorcyc[5]}'\W'$sg$git_branch$git_changes$n_jobs$exit_code${colorcyc[3]}$bd']'$sg'$ '
 }
 
 #
