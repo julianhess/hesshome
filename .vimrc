@@ -64,3 +64,10 @@ nmap <C-c>r <Plug>SetTmuxVars
 
 let g:tslime_always_current_session = 1
 let g:tslime_always_current_window = 1
+
+"showmarks config
+highlight ShowMarksHLl ctermfg=Yellow ctermbg=Black
+highlight ShowMarksHLo ctermfg=Red ctermbg=Black
+let g:showmarks_include="abcdefghijklmnopqrstuvwxyz.'`^<>[]"
+let g:showmarks_textlower="\t"
+let g:showmarks_textother="\t"
