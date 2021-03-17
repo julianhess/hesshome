@@ -58,6 +58,22 @@ alias resetw='kill -WINCH $$'
 alias hgit='git --git-dir ~/.hesshome/.git --work-tree=$HOME'
 alias git-graph='git log --all --graph --oneline'
 
+# spin up a Docker image (with some nice defaults) and drop into a shell
+dkrr () {
+	image=$1
+	shift
+	flags=$1
+	docker run --rm -ti $flags $image /bin/bash
+}
+
+# drop into a shell into an already running Docker container
+dkre () {
+	image=$1
+	shift
+	flags=$1
+	docker exec -ti $flags $image /bin/bash
+}
+
 #TODO: add conditional around these to ensure they're necessary
 alias python='python3'
 alias pip='pip3'
