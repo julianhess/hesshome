@@ -74,6 +74,16 @@ dkre () {
 	docker exec -ti $flags $image /bin/bash
 }
 
+# run arbitrary command in an already running container
+dkrx () {
+	image=$1
+	shift
+	cmd=$1
+	shift
+	flags=$1
+	docker exec -ti $flags $image $cmd
+}
+
 #TODO: add conditional around these to ensure they're necessary
 alias python='python3'
 alias pip='pip3'
