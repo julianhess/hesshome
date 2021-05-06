@@ -57,6 +57,7 @@ alias xtitle='echo -n "]0;\!*"'
 alias resetw='kill -WINCH $$'
 alias hgit='git --git-dir ~/.hesshome/.git --work-tree=$HOME'
 alias git-graph='git log --all --graph --oneline'
+alias gsu='git status -uno'
 
 # spin up a Docker image (with some nice defaults) and drop into a shell
 dkrr () {
