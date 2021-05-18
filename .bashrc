@@ -58,6 +58,7 @@ alias resetw='kill -WINCH $$'
 alias hgit='git --git-dir ~/.hesshome/.git --work-tree=$HOME'
 alias git-graph='git log --all --graph --oneline'
 alias gsu='git status -uno'
+alias wdiffc="wdiff -n -w $'\033[30;41m' -x $'\033[0m' -y $'\033[30;42m' -z $'\033[0m'"
 
 # spin up a Docker image (with some nice defaults) and drop into a shell
 dkrr () {
