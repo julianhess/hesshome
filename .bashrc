@@ -44,21 +44,32 @@ export PRINTER=lw
 
 alias ls='ls -Ch --color=auto'
 alias grep='grep --color=auto'
+
+# text manipulation aliases
 alias awkt="awk -F'\t'" 
 alias columnt="column -tn -s$'\t'" 
 alias hnum="tr '\t' '\n' | nl"
 alias cath="tail -n+1"
 alias rp='realpath'
+alias wdiffc="wdiff -n -w $'\033[30;41m' -x $'\033[0m' -y $'\033[30;42m' -z $'\033[0m'"
+
+# "safe" deletion aliases
 alias rm='rm -i'
 alias mv='mv -i'
-alias vi='vim'
+
+# application aliases
+alias vi='vim' 
 alias matlab='matlab -nodesktop'
+
+# terminal control aliases
 alias xtitle='echo -n "]0;\!*"'
 alias resetw='kill -WINCH $$'
+
+# git aliases
 alias hgit='git --git-dir ~/.hesshome/.git --work-tree=$HOME'
 alias git-graph='git log --all --graph --oneline'
 alias gsu='git status -uno'
-alias wdiffc="wdiff -n -w $'\033[30;41m' -x $'\033[0m' -y $'\033[30;42m' -z $'\033[0m'"
+alias gca='git commit --amend --no-edit'
 
 # spin up a Docker image (with some nice defaults) and drop into a shell
 dkrr () {
