@@ -70,6 +70,10 @@ alias hgit='git --git-dir ~/.hesshome/.git --work-tree=$HOME'
 alias git-graph='git log --all --graph --oneline'
 alias gsu='git status -uno'
 alias gca='git commit --amend --no-edit'
+alias gds='git diff --staged'
+gsn () {
+  cat <(git show --name-only $1)
+}
 
 # spin up a Docker image (with some nice defaults) and drop into a shell
 dkrr () {
