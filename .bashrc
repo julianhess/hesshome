@@ -71,6 +71,7 @@ alias git-graph='git log --all --graph --oneline'
 alias gsu='git status -uno'
 alias gca='git commit --amend --no-edit'
 alias gds='git diff --staged'
+alias gdf='git --no-pager diff --stat' # only show files changed between two commits
 gsn () {
   cat <(git show --name-only $1)
 }
