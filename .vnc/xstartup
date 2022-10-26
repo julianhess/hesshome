@@ -1,0 +1,4 @@
+#fluxbox &
+startxfce4 &
+xterm &
+fbsetbg ~/.fluxbox/wall.png
