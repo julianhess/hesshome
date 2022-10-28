@@ -107,7 +107,7 @@ dkrx () {
 ## Docker/Slurm aliases
 for slurm_cmd in sacct sacctmgr salloc sattach sbatch sbcast scancel scontrol \
     scrontab sdiag sinfo sprio squeue sreport srun sshare sstat strigger; do
-	alias $slurm_cmd="dkrx wolf $slurm_cmd"
+	eval "function $slurm_cmd () { docker exec wolf $slurm_cmd "'$@'"; }"
 done
 
 #TODO: add conditional around these to ensure they're necessary
@@ -322,3 +322,9 @@ if ! shopt -oq posix; then
 fi
 
 stty -ixon
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/tmp/google-cloud-sdk/path.bash.inc' ]; then . '/tmp/google-cloud-sdk/path.bash.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/tmp/google-cloud-sdk/completion.bash.inc' ]; then . '/tmp/google-cloud-sdk/completion.bash.inc'; fi
