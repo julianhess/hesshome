@@ -76,6 +76,8 @@ gsn () {
   cat <(git show --name-only $1)
 }
 
+## Docker aliases
+
 # spin up a Docker image (with some nice defaults) and drop into a shell
 dkrr () {
 	image=$1
@@ -99,8 +101,14 @@ dkrx () {
 	cmd=$1
 	shift
 	flags=$1
-	docker exec -ti $flags $image $cmd
+	docker exec $flags $image $cmd
 }
+
+## Docker/Slurm aliases
+for slurm_cmd in sacct sacctmgr salloc sattach sbatch sbcast scancel scontrol \
+    scrontab sdiag sinfo sprio squeue sreport srun sshare sstat strigger; do
+	alias $slurm_cmd="dkrx wolf $slurm_cmd"
+done
 
 #TODO: add conditional around these to ensure they're necessary
 alias python='python3'
