@@ -298,6 +298,9 @@ xterm*|rxvt*)
     ;;
 esac
 
+# If we are running inside X11, export this for snaps to work
+[ ! -z $DISPLAY ] && export DBUS_SESSION_BUS_ADDRESS="unix:path=$XDG_RUNTIME_DIR/bus"
+
 # colored GCC warnings and errors
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
@@ -322,3 +325,10 @@ if ! shopt -oq posix; then
 fi
 
 stty -ixon
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/tmp/google-cloud-sdk/path.bash.inc' ]; then . '/tmp/google-cloud-sdk/path.bash.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/tmp/google-cloud-sdk/completion.bash.inc' ]; then . '/tmp/google-cloud-sdk/completion.bash.inc'; fi
+
