@@ -76,6 +76,8 @@ gsn () {
   cat <(git show --name-only $1)
 }
 
+alias samtools_refresh='export GCS_OAUTH_TOKEN=$(gcloud auth application-default print-access-token)'
+
 ## Docker aliases
 
 # spin up a Docker image (with some nice defaults) and drop into a shell
