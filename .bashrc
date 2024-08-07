@@ -23,6 +23,7 @@ export PATH=$PATH:~/bin
 [ -d '/mnt/j/local/include' ] && export CPATH=$CPATH:/mnt/j/local/include
 [ -d '/mnt/j/local/lib' ] && export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/mnt/j/local/lib
 [ -d '/mnt/j/local/miniconda3/bin' ] && export PATH=$PATH:/mnt/j/local/miniconda3/bin
+[ -d '/usr/local/lib' ] && export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
 
 # Slurm path
 [ -d '/mnt/j/proj/cloud/slurm/conf/' ] && export SLURM_CONF=/mnt/j/proj/cloud/slurm/conf/slurm.conf
