@@ -41,7 +41,7 @@ set fo-=o
 
 " autocommands
 autocmd FileType matlab setl sw=2 sts=2 " match Mike's MATLAB indent style
-autocmd FileType c,cpp setl sw=3 sts=3 " for C
+autocmd FileType c,cpp setl sw=3 sts=3 ts=3 " for C
 autocmd FileType perl,python,sh,awk,ruby setl ts=4 sw=4 sts=0 " for Perl/Python/Bash/AWK/Ruby
 autocmd FileType python set expandtab
 autocmd FileType perl,sh,python,R,java set nospell " syntax file tries to spellcheck everything
