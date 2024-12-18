@@ -166,6 +166,18 @@ swap_instance_boot_disk () {
 }
 
 #
+# AWS stuff
+
+aws_ssh () {
+	HOST=$1
+	shift
+	USER=$1
+	shift
+	INST=$(aws ec2 describe-instances --filters Name=tag:Name,Values=$HOST --no-paginate --no-cli-pager --query 'Reservations[*].Instances[0].[PrivateDnsName]' --output text)
+	ssh -i /mnt/efs/efs1/etc/internal.pem $USER@$INST $@
+}
+
+#
 # misc. stuff
 
 # ssh and change into CWD.  assumes shared filesystem.
