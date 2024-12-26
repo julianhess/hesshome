@@ -173,7 +173,7 @@ aws_ssh () {
 	shift
 	USER=$1
 	shift
-	INST=$(aws ec2 describe-instances --filters Name=tag:Name,Values=$HOST --no-paginate --no-cli-pager --query 'Reservations[*].Instances[0].[PrivateDnsName]' --output text)
+	INST=$(aws ec2 describe-instances --filters Name=tag:Name,Values=$HOST --no-paginate --no-cli-pager --query 'Reservations[*].Instances[?PrivateDnsName != ``].PrivateDnsName[]' --output text)
 	ssh -i /mnt/efs/efs1/etc/internal.pem $USER@$INST $@
 }
 
