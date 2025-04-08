@@ -14,6 +14,7 @@ export PATH=$PATH:/usr/local/MATLAB/R2016a/bin
 export PATH=$PATH:/usr/lib/google-cloud-sdk/bin
 export PATH=$PATH:~/.local/bin
 export PATH=$PATH:~/bin
+export PATH=$PATH:/opt/bin
 
 # NFS-specific paths
 
