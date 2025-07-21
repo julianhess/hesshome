@@ -71,8 +71,11 @@ alias resetw='kill -WINCH $$'
 alias hgit='git --git-dir ~/.hesshome/.git --work-tree=$HOME'
 alias git-graph='git log --all --graph --oneline'
 alias gsu='git status -uno'
+alias gsd='git status -- .'
 alias gca='git commit --amend --no-edit'
 alias gds='git diff --staged'
+alias gap='git add --patch'
+alias gau='git add -u'
 alias gdf='git --no-pager diff --stat' # only show files changed between two commits
 gsn () {
   cat <(git show --name-only $1)
