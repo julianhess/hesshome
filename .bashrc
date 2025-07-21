@@ -49,7 +49,7 @@ alias grep='grep --color=auto'
 
 # text manipulation aliases
 alias awkt="awk -F'\t'" 
-alias columnt="column -tn -s$'\t'" 
+alias columnt="column -t -s$'\t'" 
 alias hnum="tr '\t' '\n' | nl"
 alias cath="tail -n+1"
 alias rp='realpath'
