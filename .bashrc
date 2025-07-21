@@ -317,6 +317,9 @@ xterm*|rxvt*)
     ;;
 esac
 
+# if X is running, export display
+export DISPLAY=$(pgrep -fa Xvnc | cut -d' ' -f3)
+
 # If we are running inside X11, export this for snaps to work
 [ ! -z $DISPLAY ] && export DBUS_SESSION_BUS_ADDRESS="unix:path=$XDG_RUNTIME_DIR/bus"
 
