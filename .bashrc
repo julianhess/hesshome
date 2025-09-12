@@ -14,6 +14,7 @@ export PATH=$PATH:/usr/local/MATLAB/R2016a/bin
 export PATH=$PATH:/usr/lib/google-cloud-sdk/bin
 export PATH=$PATH:~/.local/bin
 export PATH=$PATH:~/bin
+export PATH=$PATH:/opt/bin
 
 # NFS-specific paths
 
@@ -48,7 +49,7 @@ alias grep='grep --color=auto'
 
 # text manipulation aliases
 alias awkt="awk -F'\t'" 
-alias columnt="column -tn -s$'\t'" 
+alias columnt="column -t -s$'\t'" 
 alias hnum="tr '\t' '\n' | nl"
 alias cath="tail -n+1"
 alias rp='realpath'
@@ -70,8 +71,11 @@ alias resetw='kill -WINCH $$'
 alias hgit='git --git-dir ~/.hesshome/.git --work-tree=$HOME'
 alias git-graph='git log --all --graph --oneline'
 alias gsu='git status -uno'
+alias gsd='git status -- .'
 alias gca='git commit --amend --no-edit'
 alias gds='git diff --staged'
+alias gap='git add --patch'
+alias gau='git add -u'
 alias gdf='git --no-pager diff --stat' # only show files changed between two commits
 gsn () {
   cat <(git show --name-only $1)
@@ -163,6 +167,18 @@ swap_instance_boot_disk () {
 		gcloud compute instances attach-disk $i --disk ${i}-new --zone us-east1-d && \
 		gcloud compute disks delete $i --quiet --zone us-east1-d
 	done
+}
+
+#
+# AWS stuff
+
+aws_ssh () {
+	HOST=$1
+	shift
+	USER=$1
+	shift
+	INST=$(aws ec2 describe-instances --filters Name=tag:Name,Values=$HOST --no-paginate --no-cli-pager --query 'Reservations[*].Instances[?PrivateDnsName != ``].PrivateDnsName[]' --output text)
+	ssh -i /mnt/efs/efs1/etc/internal.pem $USER@$INST $@
 }
 
 #
@@ -300,6 +316,9 @@ xterm*|rxvt*)
 *)
     ;;
 esac
+
+# if X is running, export display
+export DISPLAY=$(pgrep -fa Xvnc | cut -d' ' -f3)
 
 # If we are running inside X11, export this for snaps to work
 [ ! -z $DISPLAY ] && export DBUS_SESSION_BUS_ADDRESS="unix:path=$XDG_RUNTIME_DIR/bus"
