@@ -126,7 +126,8 @@
         "tooltip-format": "{ifname} via {gwaddr} ",
         "format-linked": "{ifname} (No IP) ",
         "format-disconnected": "Disconnected ⚠",
-        "format-alt": "{ifname}: {ipaddr}/{cidr}"
+        //"format-alt": "{ifname}: {ipaddr}/{cidr}",
+        "on-click": "swaymsg exec \"sh -c nmcli dev wifi rescan && foot -a nmtui -f \"monospace:size=10\" nmtui-connect\", for_window [app_id=\"nmtui\"] floating enable, for_window [app_id=\"nmtui\"] border none"
     },
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float
