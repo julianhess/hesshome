@@ -72,10 +72,12 @@
     },
     "cpu": {
         "format": "{usage}% ",
-        "tooltip": false
+        "tooltip": false,
+        "on-click": "swaymsg exec \"foot -a htop-cpu -f \"monospace:size=10\" htop --sort-key PERCENT_CPU\", for_window [app_id=\"htop-cpu\"] floating enable, for_window [app_id=\"htop-cpu\"] border none"
     },
     "memory": {
-        "format": "{}% "
+        "format": "{}% ",
+        "on-click": "swaymsg exec \"foot -a htop-mem -f \"monospace:size=10\" htop --sort-key PERCENT_MEM\", for_window [app_id=\"htop-mem\"] floating enable, for_window [app_id=\"htop-mem\"] border none"
     },
     "temperature": {
         // "thermal-zone": 2,
