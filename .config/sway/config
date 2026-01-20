@@ -50,6 +50,10 @@ input type:touchpad {
     scroll_factor 0.25
     middle_emulation enabled
 }
+
+input type:keyboard {
+    xkb_options compose:ralt
+}
 #
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
