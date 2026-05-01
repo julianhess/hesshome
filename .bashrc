@@ -281,7 +281,7 @@ pc () {
 #
 # dynamically set background color based on hostname
 
-bgcolors=("#1e202e" "#24304a" "#1f3a3a" "#2f3a1f" "#3a2a1f" "#3a1f2f" "#2a2350" "#1a3140")
+bgcolors=("#1e202e" "#24304a" "#1f3a3a" "#2f3a1f" "#3a2a1f" "#2a2f3a" "#2a2350" "#1a3140")
 bgcolor=${bgcolors[$(echo -n "$HOSTNAME" | perl -ne 'foreach (split(//, $_)) { $x += ord($_) }; print $x % 8')]}
 printf '\033]11;%s\007' "$bgcolor"
 # reset on exit so it doesn’t leak to another terminal
@@ -368,3 +368,19 @@ if [ -d "$HOME/.nvm" ]; then
 	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 	[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 fi
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/jhess/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/jhess/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/jhess/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/jhess/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
