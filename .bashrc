@@ -169,6 +169,10 @@ swap_instance_boot_disk () {
 	done
 }
 
+gsshc () {
+	gcloud compute ssh $@ -t 'cd '`pwd`'; exec $SHELL -l'
+}
+
 #
 # AWS stuff
 
