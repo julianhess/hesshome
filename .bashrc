@@ -117,6 +117,8 @@ for slurm_cmd in sacct sacctmgr salloc sattach sbatch sbcast scancel scontrol \
 	eval "function $slurm_cmd () { docker exec wolf $slurm_cmd "'$@'"; }"
 done
 
+## Python stuff
+
 #TODO: add conditional around these to ensure they're necessary
 # alias python='python3'
 # alias pip='pip3'
@@ -124,9 +126,11 @@ done
 
 export PYTHONBREAKPOINT=ipdb.set_trace
 
-hexdumpc () {
-	hexdump -C $1 | sed 's/|.*$//'
-}
+if [ -d "$HOME/miniconda3/bin" ]; then
+  export PATH=$PATH:$HOME/miniconda3/bin
+  . "$HOME/miniconda3/etc/profile.d/conda.sh"
+  . activate base
+fi
 
 #
 # VNC stuff
@@ -193,6 +197,10 @@ sshc () {
 	ssh $@ -t 'cd '`pwd`'; exec $SHELL -l'
 }
 
+# a more easily parseable hexdump
+hexdumpc () {
+	hexdump -C $1 | sed 's/|.*$//'
+}
 
 #
 # prompt stuff
@@ -360,7 +368,6 @@ if ! shopt -oq posix; then
 fi
 
 stty -ixon
-
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/usr/local/bin/google-cloud-sdk/path.bash.inc' ]; then . '/usr/local/bin/google-cloud-sdk/path.bash.inc'; fi
