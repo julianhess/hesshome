@@ -118,9 +118,9 @@ for slurm_cmd in sacct sacctmgr salloc sattach sbatch sbcast scancel scontrol \
 done
 
 #TODO: add conditional around these to ensure they're necessary
-alias python='python3'
-alias pip='pip3'
-alias ipython='ipython3'
+# alias python='python3'
+# alias pip='pip3'
+# alias ipython='ipython3'
 
 export PYTHONBREAKPOINT=ipdb.set_trace
 
@@ -357,30 +357,6 @@ fi
 
 stty -ixon
 
+
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/tmp/google-cloud-sdk/path.bash.inc' ]; then . '/tmp/google-cloud-sdk/path.bash.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/tmp/google-cloud-sdk/completion.bash.inc' ]; then . '/tmp/google-cloud-sdk/completion.bash.inc'; fi
-
-if [ -d "$HOME/.nvm" ]; then
-	export NVM_DIR="$HOME/.nvm"
-	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-	[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-fi
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/jhess/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/jhess/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/jhess/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/jhess/miniconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-
+if [ -f '/usr/local/bin/google-cloud-sdk/path.bash.inc' ]; then . '/usr/local/bin/google-cloud-sdk/path.bash.inc'; fi
