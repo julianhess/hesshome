@@ -174,7 +174,21 @@ swap_instance_boot_disk () {
 }
 
 gsshc () {
-	gcloud compute ssh $@ -t 'cd '`pwd`'; exec $SHELL -l'
+	local gcloud_args=()
+	local ssh_args=()
+	local in_ssh_args=false
+
+	for arg in "$@"; do
+		if [[ "$arg" == "--" ]]; then
+			in_ssh_args=true
+		elif $in_ssh_args; then
+			ssh_args+=("$arg")
+		else
+			gcloud_args+=("$arg")
+		fi
+	done
+
+	gcloud compute ssh "${gcloud_args[@]}" -- "${ssh_args[@]}" -t 'cd '"$(pwd)"'; exec $SHELL -l'
 }
 
 #
