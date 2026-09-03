@@ -1,0 +1,17 @@
+{
+  "model": "sonnet",
+  "tui": "fullscreen",
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "permission_prompt",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "printf '\\033Ptmux;\\033\\033]9;%s\\007\\033\\\\' \"Claude needs you\" > \"/dev/$(ps -o tty= -p $PPID | tr -d ' ')\""
+          }
+        ]
+      }
+    ]
+  }
+}
