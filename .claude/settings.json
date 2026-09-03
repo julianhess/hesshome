@@ -1,6 +1,7 @@
 {
   "model": "sonnet",
   "tui": "fullscreen",
+  "copyOnSelect": false,
   "hooks": {
     "Notification": [
       {
