@@ -117,16 +117,20 @@ for slurm_cmd in sacct sacctmgr salloc sattach sbatch sbcast scancel scontrol \
 	eval "function $slurm_cmd () { docker exec wolf $slurm_cmd "'$@'"; }"
 done
 
+## Python stuff
+
 #TODO: add conditional around these to ensure they're necessary
-alias python='python3'
-alias pip='pip3'
-alias ipython='ipython3'
+# alias python='python3'
+# alias pip='pip3'
+# alias ipython='ipython3'
 
 export PYTHONBREAKPOINT=ipdb.set_trace
 
-hexdumpc () {
-	hexdump -C $1 | sed 's/|.*$//'
-}
+if [ -d "$HOME/miniconda3/bin" ]; then
+  export PATH=$PATH:$HOME/miniconda3/bin
+  . "$HOME/miniconda3/etc/profile.d/conda.sh"
+  . activate base
+fi
 
 #
 # VNC stuff
@@ -169,6 +173,24 @@ swap_instance_boot_disk () {
 	done
 }
 
+gsshc () {
+	local gcloud_args=()
+	local ssh_args=()
+	local in_ssh_args=false
+
+	for arg in "$@"; do
+		if [[ "$arg" == "--" ]]; then
+			in_ssh_args=true
+		elif $in_ssh_args; then
+			ssh_args+=("$arg")
+		else
+			gcloud_args+=("$arg")
+		fi
+	done
+
+	gcloud compute ssh "${gcloud_args[@]}" -- "${ssh_args[@]}" -t 'cd '"$(pwd)"'; exec $SHELL -l'
+}
+
 #
 # AWS stuff
 
@@ -189,6 +211,10 @@ sshc () {
 	ssh $@ -t 'cd '`pwd`'; exec $SHELL -l'
 }
 
+# a more easily parseable hexdump
+hexdumpc () {
+	hexdump -C $1 | sed 's/|.*$//'
+}
 
 #
 # prompt stuff
@@ -279,6 +305,15 @@ pc () {
 }
 
 #
+# dynamically set background color based on hostname
+
+bgcolors=("#1e202e" "#24304a" "#1f3a3a" "#2f3a1f" "#3a2a1f" "#2a2f3a" "#2a2350" "#1a3140")
+bgcolor=${bgcolors[$(echo -n "$HOSTNAME" | perl -ne 'foreach (split(//, $_)) { $x += ord($_) }; print $x % 8')]}
+printf '\033]11;%s\007' "$bgcolor"
+# reset on exit so it doesn’t leak to another terminal
+trap 'printf "\033]111\007"' EXIT
+
+#
 # define ls colors
 
 LS_COLORS='rs=0:di=01;34:ln=01;93:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:';
@@ -317,8 +352,8 @@ xterm*|rxvt*)
     ;;
 esac
 
-# if X is running, export display
-export DISPLAY=$(pgrep -fa Xvnc | cut -d' ' -f3)
+# if Xvnc is running, $DISPLAY will be unset; automatically set it
+[ -z $DISPLAY ] && export DISPLAY=$(pgrep -fa Xvnc | cut -d' ' -f3)
 
 # If we are running inside X11, export this for snaps to work
 [ ! -z $DISPLAY ] && export DBUS_SESSION_BUS_ADDRESS="unix:path=$XDG_RUNTIME_DIR/bus"
@@ -349,8 +384,4 @@ fi
 stty -ixon
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/tmp/google-cloud-sdk/path.bash.inc' ]; then . '/tmp/google-cloud-sdk/path.bash.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/tmp/google-cloud-sdk/completion.bash.inc' ]; then . '/tmp/google-cloud-sdk/completion.bash.inc'; fi
-
+if [ -f '/usr/local/bin/google-cloud-sdk/path.bash.inc' ]; then . '/usr/local/bin/google-cloud-sdk/path.bash.inc'; fi
