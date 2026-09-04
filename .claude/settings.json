@@ -14,5 +14,6 @@
         ]
       }
     ]
-  }
+  },
+  "remoteControlAtStartup": true
 }
