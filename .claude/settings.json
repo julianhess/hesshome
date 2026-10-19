@@ -1,7 +1,5 @@
 {
   "model": "sonnet",
-  "tui": "fullscreen",
-  "copyOnSelect": false,
   "hooks": {
     "Notification": [
       {
@@ -15,5 +13,11 @@
       }
     ]
   },
-  "remoteControlAtStartup": true
+  "tui": "fullscreen",
+  "remoteControlAtStartup": true,
+  "copyOnSelect": false,
+  "agentPushNotifEnabled": true,
+  "attribution": {
+    "commit": ""
+  }
 }
