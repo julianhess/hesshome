@@ -12,6 +12,13 @@ autocmd VimEnter * set autochdir
 syntax on
 set spell
 
+set mouse=a
+
+" make mouse only work in file browser
+set mouse= " disable everywhere by default
+autocmd FileType netrw setlocal mouse=a " enable in file browser
+autocmd BufLeave * if &filetype ==# 'netrw' | set mouse= | endif " disable when leaving file browser
+
 set colorcolumn=80
 
 set foldcolumn=1
@@ -41,7 +48,7 @@ set fo-=o
 
 " autocommands
 autocmd FileType matlab setl sw=2 sts=2 " match Mike's MATLAB indent style
-autocmd FileType c,cpp setl sw=3 sts=3 ts=3 expandtab " for C
+autocmd FileType c,cpp setl sw=4 sts=4 ts=4 expandtab " for C
 autocmd FileType perl,python,sh,awk,ruby setl ts=4 sw=4 sts=0 " for Perl/Python/Bash/AWK/Ruby
 autocmd FileType python set expandtab
 autocmd FileType html* set expandtab sw=4 sts=4 ts=4
