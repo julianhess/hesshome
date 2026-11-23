@@ -195,12 +195,12 @@ gsshc () {
 # AWS stuff
 
 aws_ssh () {
-	HOST=$1
-	shift
-	USER=$1
-	shift
-	INST=$(aws ec2 describe-instances --filters Name=tag:Name,Values=$HOST --no-paginate --no-cli-pager --query 'Reservations[*].Instances[?PrivateDnsName != ``].PrivateDnsName[]' --output text)
-	ssh -i /mnt/efs/efs1/etc/internal.pem $USER@$INST $@
+	# local: assigning the global $USER/$HOST here would leak into the calling
+	# shell (and thence into Slurm jobs, breaking rootless podman's subuid lookup)
+	local host=$1 ruser=$2 inst
+	shift 2
+	inst=$(aws ec2 describe-instances --filters Name=tag:Name,Values=$host --no-paginate --no-cli-pager --query 'Reservations[*].Instances[?PrivateDnsName != ``].PrivateDnsName[]' --output text)
+	ssh -i /mnt/efs/efs1/etc/internal.pem "$ruser@$inst" "$@"
 }
 
 #
