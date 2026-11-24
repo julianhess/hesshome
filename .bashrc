@@ -80,6 +80,17 @@ alias gdf='git --no-pager diff --stat' # only show files changed between two com
 gsn () {
   cat <(git show --name-only $1)
 }
+gco() { # switch to worktree based on its branch name
+    local wt
+    wt=$(git for-each-ref --format='%(worktreepath)' \
+        "refs/heads/$1") || return
+
+    if [[ -n "$wt" ]]; then
+        cd -- "$wt"
+    else
+        git checkout "$@"
+    fi
+}
 
 alias samtools_refresh='export GCS_OAUTH_TOKEN=$(gcloud auth application-default print-access-token)'
 
